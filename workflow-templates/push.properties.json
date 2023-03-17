@@ -1,0 +1,8 @@
+{
+    "name": "CI on Push Workflow",
+    "description": "Bad Echo starter CI workflow.",
+    "iconName": "Icon",
+    "filePatterns": [
+        "version.json$"
+    ]
+}
