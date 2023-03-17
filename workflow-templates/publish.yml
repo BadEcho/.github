@@ -19,6 +19,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       with:
+        submodules: true
         fetch-depth: 0      
     - run: git config --global user.email "chamber@badecho.com"
     - run: git config --global user.name "Echo Chamber"
@@ -32,12 +33,12 @@ jobs:
         dotnet-version: 7.0.x      
     - name: Build
       shell: pwsh
-      run: .\build.ps1
+      run: .\build\build.ps1
     - name: Push to NuGet
       env:
         PKG_URL: https://api.nuget.org/v3/index.json
         PKG_API_KEY: ${{ secrets.NUGET_API_KEY }}
-      run: ./push.ps1
+      run: .\build\push.ps1
       shell: pwsh
     - name: Artifacts
       if: always()
