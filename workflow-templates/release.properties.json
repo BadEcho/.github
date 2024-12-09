@@ -1,5 +1,5 @@
 {
-    "name": "Publish Release Workflow",
+    "name": "Create Stable Release",
     "description": "Bad Echo starter publishing workflow.",
     "iconName": "Icon",
     "filePatterns": [
