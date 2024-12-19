@@ -30,7 +30,7 @@ on:
         required: true
 
 env:
-  package-configuration: 'Release' # Replace with the build configuration to use when creating packages.
+  PACKAGE_CONFIGURATION: 'Release' # Replace with the build configuration to use when creating packages.
   
 jobs:
   build:
@@ -57,7 +57,7 @@ jobs:
       run: .\build\Invoke-Build.ps1 -ReleaseBuild:$([System.Convert]::ToBoolean($Env:RELEASE_BUILD)) -PackageConfiguration:$Env:PACKAGE_CONFIGURATION
       env:
         RELEASE_BUILD: ${{ inputs.release-build != '' && inputs.release-build || 'false' }}
-        PACKAGE_CONFIGURATION: ${{ env.package-configuration }}
+        PACKAGE_CONFIGURATION: ${{ env.PACKAGE_CONFIGURATION }}
       # Store our compiled assets for subsequent jobs.
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
