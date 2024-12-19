@@ -37,7 +37,7 @@ jobs:
     name: Fetch and Build Source
     runs-on: windows-2022
     outputs:
-      BUILD_SUBMODULE_SHA: ${{ steps.submodule-status.outputs.BUILD_SUBMODULE_SHA }}
+      build-submodule-sha: ${{ steps.submodule-status.outputs.BUILD_SUBMODULE_SHA }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -112,7 +112,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: BadEcho/build
-        ref: ${{ needs.build.outputs.BUILD_SUBMODULE_SHA }}
+        ref: ${{ needs.build.outputs.build-submodule-sha }}
         path: build        
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
