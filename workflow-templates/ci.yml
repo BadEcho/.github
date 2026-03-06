@@ -40,7 +40,7 @@ env:
 jobs:
   build:
     name: Fetch and Build Source
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     outputs:
       build-submodule-sha: ${{ steps.submodule-status.outputs.BUILD_SUBMODULE_SHA }}
       build-artifact-name: ${{ env.BUILD_ARTIFACT_NAME }}
@@ -56,7 +56,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v2    
     - name: Build
@@ -79,12 +79,12 @@ jobs:
     name: Run Unit Tests
     needs: build
     if: inputs.skip-tests != true
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - name: Add VSTest to PATH
       uses: darenm/Setup-VSTest@v1.3
     - name: Download Build Artifact
@@ -111,8 +111,8 @@ jobs:
   deploy:
     name: Deploy Packages
     needs: [build, test]
-    if: always()
-    runs-on: windows-2022
+    if: always() && github.event_name != 'pull_request'
+    runs-on: windows-2025-vs2026
     steps:
     - name: Check Previous Jobs' Results
       if: needs.build.result != 'success' || (needs.test.result != 'success' && inputs.skip-tests != true)
@@ -126,7 +126,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - name: Download Package Artifact
       uses: actions/download-artifact@v4
       with:
